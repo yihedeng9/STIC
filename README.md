@@ -31,7 +31,7 @@ Authors: [Yihe Deng](https://sites.google.com/g.ucla.edu/yihedeng/)\*, [Pan Lu](
     Left: Accuracy improvement of STIC compared to the original LLaVA-v1.6 (Mistral-7B) on seven benchmarks. Right: Response examples from the original LLaVA-v1.6 and STIC (LLaVA-v1.6). 
 </p>
 
-🔍 To tackle the data acquisition bottleneck in multi-modality, we propose **S**elf-**T**raining on **I**mage **C**omprehension (**STIC**). Inspired by the recent success of self-training methods on LLMs, our method leverages self-generated data to improve their downstream performance. Different from the text-only domain, the unique vision modality of LVLMs introduces new challenges, as LVLMs must understand the input image content before reasoning and responding to any related textual queries about the image. Therefore, the proposed STIC approach is a novel two-stage self-training method that targets both __image perception__ and __reasoning__ over images and texts. 
+To tackle the data acquisition bottleneck in multi-modality, we propose **S**elf-**T**raining on **I**mage **C**omprehension (**STIC**). Inspired by the recent success of self-training methods on LLMs, our method leverages self-generated data to improve their downstream performance. Different from the text-only domain, the unique vision modality of LVLMs introduces new challenges, as LVLMs must understand the input image content before reasoning and responding to any related textual queries about the image. Therefore, the proposed STIC approach is a novel two-stage self-training method that targets both __image perception__ and __reasoning__ over images and texts. 
 
 <p align="center">
     <img src="images/demo-method.png" width="90%"> <br>
@@ -50,7 +50,7 @@ The Figure below shows examples of such generated responses.
     Framework overview of STIC, a two-stage self-training algorithm focusing on the image comprehension capability of the LVLMs.
 </p>
 
-🏆 During fine-tuning, we consider a DPO loss with an additional regularized term explicitly emphasizing the preferred response. 
+During fine-tuning, we consider a DPO loss with an additional regularized term explicitly emphasizing the preferred response. 
 At stage 2, we allow the model to self-improve its reasoning ability based on its own extracted image information by reusing a small amount of existing instruction fine-tuning data and appending its self-generated image descriptions to the prompts. We refer to this second stage as __description-infused fine-tuning__. 
 
 Notably, STIC does not require pre-labeled information of the images.
