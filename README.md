@@ -24,6 +24,13 @@ Authors (*Equal Contribution): [Yihe Deng](https://sites.google.com/g.ucla.edu/y
 ## 🔔 News 
 - **[05/30/2024]** Our paper is released on arXiv: .
 
+## Table of Contents
+- [About STIC](#👀-About-STIC)
+- [Install](#🛠️_Install)
+- [Data and Models](#🤖_Data_and_Models)
+- [Instruction](#🔮_Instruction)
+- [Acknowledgement](#Acknowledgement)
+
 ## 👀 About STIC
 
 <p align="center">
