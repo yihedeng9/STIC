@@ -9,7 +9,7 @@
 
 This repository contains the official code for the paper "[Enhancing Large Vision Language Models with Self-Training on Image Comprehension](https://arxiv.org/abs/)".
 
-Authors: [Yihe Deng](https://sites.google.com/g.ucla.edu/yihedeng/)\*, [Pan Lu](https://lupantech.github.io/)\*, [Fan Yin](https://fanyin3639.github.io/), [Ziniu Hu](https://acbull.github.io/), [Sheng Shen](https://sincerass.github.io/), [James Zou](https://www.james-zou.com/), [Kai-Wei Chang](https://web.cs.ucla.edu/~kwchang/), [Wei Wang](https://web.cs.ucla.edu/~weiwang/)
+Authors (*Equal Contribution): [Yihe Deng](https://sites.google.com/g.ucla.edu/yihedeng/)\*, [Pan Lu](https://lupantech.github.io/)\*, [Fan Yin](https://fanyin3639.github.io/), [Ziniu Hu](https://acbull.github.io/), [Sheng Shen](https://sincerass.github.io/), [James Zou](https://www.james-zou.com/), [Kai-Wei Chang](https://web.cs.ucla.edu/~kwchang/), [Wei Wang](https://web.cs.ucla.edu/~weiwang/)
 
 [[Webpage](https://stic-lvlm.github.io/)] [[Huggingface](https://huggingface.co/papers/)] 
 

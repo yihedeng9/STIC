@@ -189,7 +189,14 @@ if __name__ == "__main__":
 
 
     directory = args.image_dir
-    coco = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+
+
+    # load all images from coco 
+    # coco = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+    
+    # load the 6k subset used in stic
+    with open("6k_coco_names.json", "r") as f:
+        coco = json.load(f)
     random.shuffle(coco)
 
     for i in tqdm(range(len(coco))):
