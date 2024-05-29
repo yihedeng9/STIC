@@ -78,13 +78,13 @@ rm /home/username/miniconda3/envs/stic/lib/python3.10/site-packages/trl/trainer/
 cp ./stic/dpo_trainer.py /home/username/miniconda3/envs/stic/lib/python3.10/site-packages/trl/trainer/
 ```
 
-4. Download unlabeled image data for stage 1 to your desired directory. 
+4. (For stage 1 fine-tuning) Download unlabeled image data for stage 1 to your desired directory. 
 ```Shell
 wget http://images.cocodataset.org/zips/train2014.zip 
 unzip train2014.zip
 ```
 
-5. Download the image data for stage 2 to your desired directory and organize the data as follows.
+5. (For stage 2 fine-tuning) Download the image data for stage 2 to your desired directory and organize the data as follows.
 ```Shell
 wget http://images.cocodataset.org/zips/train2017.zip 
 wget https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip
@@ -101,6 +101,8 @@ wget https://cs.stanford.edu/people/rak248/VG_100K_2/images2.zip
     ├── VG_100K
     └── VG_100K_2
 ```
+
+Download the 5k instruction fine-tuning data [here](https://drive.google.com/file/d/1VNT-p0qIshIESwCT3DjmHtsiYfH2VvR1/view?usp=sharing) and put it in `./data`.
 
 ## 🤖 Data and Models
 We provide both the self-constructed preference data and the description-infused instruction data on HuggingFace. 
@@ -133,7 +135,7 @@ Options
 
 __Example script__: 
 ```Shell
-bash scripts/generate_pref.sh
+CUDA_VISIBLE_DEVICES=0 bash scripts/generate_pref.sh
 ```
 
 **Note**: parallelize the generation tasks on multiple gpus for faster generation. 
@@ -159,13 +161,41 @@ Options (change the necessary arguments in the shell script)
 Ensure the global batch size (number_of_devices * batch_size * gradient_accumulation_steps) is equal to our setting of 8. 
 
 ### Step 3. Description-infused Instruction Fine-tuning
-#### Step 3.1 Description Generation 
 
+#### Step 3.1 Description Generation 
+```
+python stic/generate_des_stage2.py [options]
+```
+Options
+- `--model-path`: path to the target LVLM model for training (local or huggingface)
+    - default: `liuhaotian/llava-v1.6-mistral-7b`
+- `--adapter-path`: path to the LoRA weights after stage 1 (local or huggingface)
+    - example `checkpoints/llava_coco_test`
+- `--image-dir`: local directory to the images for instruction fine-tuning  
+    - example: `/data/username/image_data`
+- `--save-dir`: local directory/filename that will save the self-constructed preference data
+    - default: `image_description.jsonl` will save the current directory
+
+__Example script__: 
+```Shell
+CUDA_VISIBLE_DEVICES=0 bash scripts/generate_des_stage2.sh
+```
+Parellelize the task across multiple gpus to speed up the process. 
+Lastly, combine the description with the instruction fine-tuning data. 
+```Shell
+python stic/add_des_to_data.py 
+```
+
+
+#### Step 3.2 Fine-tuning
+```Shell
+bash scripts/finetune_lora.sh
+```
 
 ### Step 4. Evaluation (Please find more details for evaluation in [Evaluation](doc/Evaluation.md).) 
 (We note that, our evaluation scripts follow the ones released for LLaVA-1.5, as the new evaluation scripts for LLaVA-1.6 were not released at the time of this work. This may result in some evaluation differences from the official reported values of LLaVA-1.6, as similar in this [issue](https://github.com/haotian-liu/LLaVA/issues/1326). Nevertheless, we maintain the same evaluation scripts for with/without STIC to ensure fair comparison.)
 
-Take MMBench for example.
+Take MMBench for example. (`pip install openpyxl` before evaluating with MMBench.)
 
 __Option 1__. Evaluating the model performance __without__ DaR (Describe and Respond)
 ```Shell

@@ -1,7 +1,7 @@
 #!/bin/bash
 export HF_HOME="/data1/yihedeng"
 SPLIT="mmbench_dev_20230712"
-ANSWER="llava-v1.6-7b-stic"
+ANSWER="llava-v1.6-7b-stic-dar"
 
 python -m llava.eval.model_vqa_mmbench_dar \
    --model-path liuhaotian/llava-v1.6-mistral-7b \

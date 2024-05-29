@@ -45,13 +45,6 @@ def load_image(image_file):
     else:
         image = Image.open(image_file).convert("RGB")
 
-    if args.image_corruption:
-        if random.random() > 0.5:
-            image = T.Resize(size=20)(image)
-        else:
-            jitter = T.ColorJitter(brightness=.5, hue=.3)
-            image = jitter(image)
-
     return image
 
 
@@ -151,9 +144,9 @@ if __name__ == "__main__":
     parser.add_argument("--top_p", type=float, default=None)
     parser.add_argument("--num_beams", type=int, default=1)
     parser.add_argument("--max_new_tokens", type=int, default=1024)
-    parser.add_argument("--image_corruption", type=bool, default=False)
-    parser.add_argument("--image_dir", type=str, default="playground/data/llava-bench-in-the-wild/Images")
-    
+
+    parser.add_argument("--image-dir", type=str, default="/data1/yihedeng/image_data/")
+    parser.add_argument("--save-dir", type=str, default="image_description.jsonl")
     parser.add_argument("--adapter-path", type=str, default=None)
     args = parser.parse_args()
 
@@ -176,16 +169,16 @@ if __name__ == "__main__":
                    "Interpret the scene shown in the image.",
                    "Identify and describe the main focal points in the visual."]
 
-    
-    directory = "/data1/yihedeng/image_data/"
-    with open('mixed_5k.json', 'r') as f:
+    directory = args.image_dir
+    with open('data/mixed_5k.json', 'r') as f:
        coco = json.load(f)
 
     image_names = [x['image'] for x in coco]
     print(len(image_names), image_names[0])
 
+    # parallelize the task on multiple gpus to speed up the process
     for i in tqdm(range(len(image_names))):
-        args.image_file = directory+image_names[i]
+        args.image_file = f"{directory}/{image_names[i]}"
         args.query = random.choice(prompt_list)
         output = eval_model(args)
 
@@ -193,6 +186,6 @@ if __name__ == "__main__":
             "prompt":args.query,
             "description":output}
         
-        with open(f"stage2/llavabench/sft_v16_prompt_{p}.jsonl","a") as f:
+        with open(args.save_dir,"a") as f:
             f.write(json.dumps(d))
             f.write("\n")

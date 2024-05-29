@@ -85,18 +85,8 @@ def eval_model(args):
             question = row['question']
             hint = row['hint']
             image = load_image_from_base64(row['image'])
-
-            prompt_list = ["Illustrate the details of the picture.",
-                   "Summarize the visual content presented.",
-                   "Explain what is depicted in the photograph.",
-                   "Outline the key elements captured in the image.",
-                   "Detail the composition and subjects within the frame.",
-                   "Convey the atmosphere and mood represented in the snapshot.",
-                   "Interpret the scene shown in the image.",
-                   "Identify and describe the main focal points in the visual."]
     
-            des_prompt = random.choice(prompt_list)
-        
+            des_prompt = "Detail the composition and subjects within the frame."
             des_conv = conv_templates[args.conv_mode].copy()
             des_conv.append_message(des_conv.roles[0], des_prompt)
             des_conv.append_message(des_conv.roles[1], None)
@@ -117,7 +107,9 @@ def eval_model(args):
                     num_beams=args.num_beams,
                     # no_repeat_ngram_size=3,
                     max_new_tokens=1024,
-                    use_cache=True)
+                    use_cache=True,
+                    pad_token_id=tokenizer.eos_token_id,
+                    )
 
             des_outputs = tokenizer.batch_decode(des_output_ids, skip_special_tokens=True)[0].strip()
 
