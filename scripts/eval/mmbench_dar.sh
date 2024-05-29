@@ -3,7 +3,7 @@ export HF_HOME="/data1/yihedeng"
 SPLIT="mmbench_dev_20230712"
 ANSWER="llava-v1.6-7b-stic"
 
-python -m llava.eval.model_vqa_mmbench \
+python -m llava.eval.model_vqa_mmbench_dar \
    --model-path liuhaotian/llava-v1.6-mistral-7b \
    --question-file ./playground/data/eval/mmbench/$SPLIT.tsv \
    --answers-file ./playground/data/eval/mmbench/answers/$SPLIT/$ANSWER.jsonl \

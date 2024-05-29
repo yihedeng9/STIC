@@ -11,7 +11,7 @@ This repository contains the official code for the paper "[Enhancing Large Visio
 
 Authors (*Equal Contribution): [Yihe Deng](https://sites.google.com/g.ucla.edu/yihedeng/)\*, [Pan Lu](https://lupantech.github.io/)\*, [Fan Yin](https://fanyin3639.github.io/), [Ziniu Hu](https://acbull.github.io/), [Sheng Shen](https://sincerass.github.io/), [James Zou](https://www.james-zou.com/), [Kai-Wei Chang](https://web.cs.ucla.edu/~kwchang/), [Wei Wang](https://web.cs.ucla.edu/~weiwang/)
 
-[[Webpage](https://stic-lvlm.github.io/)] [[Huggingface](https://huggingface.co/papers/)] 
+[[Project page](https://stic-lvlm.github.io/)] [[Huggingface](https://huggingface.co/papers/)] 
 
 
 **Citation**: If you find this repo useful for your research, please consider citing the paper
@@ -78,20 +78,43 @@ rm /home/username/miniconda3/envs/stic/lib/python3.10/site-packages/trl/trainer/
 cp ./stic/dpo_trainer.py /home/username/miniconda3/envs/stic/lib/python3.10/site-packages/trl/trainer/
 ```
 
-4. Download unlabeled image data to your desired directory. 
+4. Download unlabeled image data for stage 1 to your desired directory. 
 ```Shell
 wget http://images.cocodataset.org/zips/train2014.zip 
 unzip train2014.zip
 ```
 
+5. Download the image data for stage 2 to your desired directory and organize the data as follows.
+```Shell
+wget http://images.cocodataset.org/zips/train2017.zip 
+wget https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip
+wget https://cs.stanford.edu/people/rak248/VG_100K_2/images.zip
+wget https://cs.stanford.edu/people/rak248/VG_100K_2/images2.zip
+```
+
+```
+├── coco
+│   └── train2017
+├── textvqa
+│   └── train_images
+└── vg
+    ├── VG_100K
+    └── VG_100K_2
+```
+
 ## 🤖 Data and Models
 We provide both the self-constructed preference data and the description-infused instruction data on HuggingFace. 
 
-| Dataset                    |                           Download                           |
+| Datasets                    |                           Download                           |
 | :----------------------- | :----------------------------------------------------------: |
 | Stage 1. Self-Constructed Preference Data | 🤗 [HuggingFace](https://huggingface.co/datasets/ydeng9/stic_coco_pref) |
 | Stage 2. Description-Infused Instruction Data | 🤗 [HuggingFace](https://huggingface.co/datasets/UCLA-AGI/SPIN_iter1) |
 
+
+| Models (LoRA)                    |                           Download                           |
+| :----------------------- | :----------------------------------------------------------: |
+| Stage 1. Image Comprhension Self-Training | 🤗 [HuggingFace](https://huggingface.co/ydeng9/llava-v1.6-mistral-7b-STIC-stage1) |
+| Stage 2. Description-infused Fine-tuning| 🤗 [HuggingFace](https://huggingface.co/ydeng9/llava-v1.6-mistral-7b-STIC) |
 
 
 ## 🔮 Instruction 
@@ -113,6 +136,8 @@ __Example script__:
 bash scripts/generate_pref.sh
 ```
 
+**Note**: parallelize the generation tasks on multiple gpus for faster generation. 
+
 #### Step 1.1. Convert the output jsonl file to a json file. 
 ```
 python stic/convert_jsonl_to_json.py --input pref_data_mscoco.jsonl 
@@ -132,6 +157,37 @@ Options (change the necessary arguments in the shell script)
     - example: `/data/username/checkpoints/llava_stic_stage1` 
 
 Ensure the global batch size (number_of_devices * batch_size * gradient_accumulation_steps) is equal to our setting of 8. 
+
+### Step 3. Description-infused Instruction Fine-tuning
+#### Step 3.1 Description Generation 
+
+
+### Step 4. Evaluation (Please find more details for evaluation in [Evaluation](doc/Evaluation.md).) 
+(We note that, our evaluation scripts follow the ones released for LLaVA-1.5, as the new evaluation scripts for LLaVA-1.6 were not released at the time of this work. This may result in some evaluation differences from the official reported values of LLaVA-1.6, as similar in this [issue](https://github.com/haotian-liu/LLaVA/issues/1326). Nevertheless, we maintain the same evaluation scripts for with/without STIC to ensure fair comparison.)
+
+Take MMBench for example.
+
+__Option 1__. Evaluating the model performance __without__ DaR (Describe and Respond)
+```Shell
+python llava/eval/model_vqa_mmbench.py [options]
+```
+- `--load-peft`: path to the lora weights fine-tuned by SITC (local or huggingface)
+    - default: `None` will evaluate the original LVLM model from `--model-path`. 
+- `--model-path`: path to the target LVLM model for training (local or huggingface)
+    - default: `liuhaotian/llava-v1.6-mistral-7b`
+- `--answers-file`: local directory to the save the answers 
+    - example: `/data/username/MSCOCO/train2014`
+
+__Option 2. Evaluating the model performance with DaR (Describe and Respond)__
+```Shell
+python llava/eval/model_vqa_mmbench_dar.py [options]
+```
+Arguments are the same as `model_vqa_mmbench.py`.
+
+__Example script__: 
+```Shell
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval/mmbench_dar.sh
+```
 
 ## Acknowledgement
 This repo is built upon [LLaVA](https://github.com/haotian-liu/LLaVA) and [POVID](https://github.com/YiyangZhou/POVID). We thank all the authors for their great work. 
