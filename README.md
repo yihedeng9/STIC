@@ -116,14 +116,14 @@ We provide both the self-constructed preference data and the description-infused
 
 | Datasets                    |                           Download                           |
 | :----------------------- | :----------------------------------------------------------: |
-| Stage 1. Self-Constructed Preference Data | 🤗 [HuggingFace](https://huggingface.co/datasets/ydeng9/stic_coco_pref) |
-| Stage 2. Description-Infused Instruction Data | 🤗 [HuggingFace](https://huggingface.co/datasets/UCLA-AGI/SPIN_iter1) |
+| Stage 1. Self-Constructed Preference Data | 🤗 [HuggingFace](https://huggingface.co/datasets/STIC-LVLM/stic-coco-preference-6k) |
+| Stage 2. Description-Infused Instruction Data | 🤗 [HuggingFace](https://huggingface.co/datasets/STIC-LVLM/stic-llava-instruct-desc-5k) |
 
 
 | Models (LoRA)                    |                           Download                           |
 | :----------------------- | :----------------------------------------------------------: |
-| Stage 1. Image Comprhension Self-Training | 🤗 [HuggingFace](https://huggingface.co/ydeng9/llava-v1.6-mistral-7b-STIC-stage1) |
-| Stage 2. Description-infused Fine-tuning| 🤗 [HuggingFace](https://huggingface.co/ydeng9/llava-v1.6-mistral-7b-STIC) |
+| Stage 1. Image Comprhension Self-Training | 🤗 [HuggingFace](https://huggingface.co/STIC-LVLM/llava-v1.6-mistral-7b-STIC-stage1) |
+| Stage 2. Description-infused Fine-tuning| 🤗 [HuggingFace](https://huggingface.co/STIC-LVLM/llava-v1.6-mistral-7b-STIC) |
 
 
 ## 🔮 Instruction 
@@ -151,7 +151,7 @@ CUDA_VISIBLE_DEVICES=0 bash scripts/generate_pref.sh
 ```
 python stic/convert_jsonl_to_json.py --input pref_data_mscoco.jsonl 
 ```
-or directly download the json file from [huggingface](https://huggingface.co/datasets/ydeng9/stic_coco_pref).
+or directly download the json file from [huggingface](https://huggingface.co/datasets/STIC-LVLM/stic-coco-preference-6k).
 
 ### Step 2. Self-training with regularized DPO. 
 ```Shell

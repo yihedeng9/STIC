@@ -110,7 +110,7 @@ class TrainingArguments(transformers.TrainingArguments):
     lora_bias: str = "none"
     mm_projector_lr: Optional[float] = None
     group_by_modality_length: bool = field(default=False)
-    load_peft: Optional[str] = None
+    load_peft: Optional[str] = field(default=None)
 
 def maybe_zero_3(param, ignore_status=False, name=None):
     from deepspeed import zero

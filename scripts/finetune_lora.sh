@@ -1,10 +1,11 @@
 #!/bin/bash
 
+
 export HF_HOME="/data1/yihedeng"
-deepspeed --include=localhost:0,1,2,3 llava/train/train_mem.py \
+deepspeed --include=localhost:2,5 llava/train/train_mem.py \
     --deepspeed ./scripts/zero2.json \
     --lora_enable True --lora_r 128 --lora_alpha 256 --mm_projector_lr 2e-5 \
-    --model_name_or_path liuhaotian/llava-v1.6-mistral-7b  \
+    --model_name_or_path liuhaotian/llava-v1.6-mistral-7b \
     --load_peft STIC-LVLM/llava-v1.6-mistral-7b-STIC-stage1 \
     --version v1 \
     --data_path data/des_instr_data.json \
@@ -17,7 +18,7 @@ deepspeed --include=localhost:0,1,2,3 llava/train/train_mem.py \
     --image_aspect_ratio pad \
     --group_by_modality_length True \
     --bf16 True \
-    --output_dir /data1/yihedeng/checkpoints/llava_coco_stic \
+    --output_dir /data1/yihedeng/checkpoints/llava_coco_stic_new  \
     --num_train_epochs 1 \
     --per_device_train_batch_size 16 \
     --per_device_eval_batch_size 4 \
@@ -36,4 +37,4 @@ deepspeed --include=localhost:0,1,2,3 llava/train/train_mem.py \
     --gradient_checkpointing True \
     --lazy_preprocess True \
     --dataloader_num_workers 4 \
-    --report_to wandb 
+    --report_to wandb
