@@ -85,13 +85,13 @@ rm /home/username/miniconda3/envs/stic/lib/python3.10/site-packages/trl/trainer/
 cp ./stic/dpo_trainer.py /home/username/miniconda3/envs/stic/lib/python3.10/site-packages/trl/trainer/
 ```
 
-4. (For stage 1 fine-tuning) Download unlabeled image data for stage 1 to your desired directory. 
+4. (For stage 1 fine-tuning) Download the 5k unlabeled image data for stage 1 from [HuggingFace](https://huggingface.co/datasets/STIC-LVLM/stic-coco-preference-6k/blob/main/images.zip) to your desired directory. Alternatively, one could also download the entire train2014 split from MSCOCO.  
 ```Shell
 wget http://images.cocodataset.org/zips/train2014.zip 
 unzip train2014.zip
 ```
 
-5. (For stage 2 fine-tuning) Download the image data for stage 2 to your desired directory and organize the data as follows.
+5. (For stage 2 fine-tuning) [TODO: we will soon upload the specific 6k images for stage 2 to huggingface.] Download the image data for stage 2 to your desired directory and organize the data as follows.
 ```Shell
 wget http://images.cocodataset.org/zips/train2017.zip 
 wget https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip
