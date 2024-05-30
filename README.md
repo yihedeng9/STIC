@@ -26,7 +26,7 @@ Authors (*Equal Contribution): [Yihe Deng](https://sites.google.com/g.ucla.edu/y
 
 ## Table of Contents
 - [About STIC](#-About-STIC)
-- [Install](#-Install)
+- [Install](#-install)
 - [Data and Models](#-Data-and-Models)
 - [Instruction](#-Instruction)
 - [Acknowledgement](#Acknowledgement)
