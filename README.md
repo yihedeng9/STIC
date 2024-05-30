@@ -198,6 +198,7 @@ python stic/add_des_to_data.py
 ```Shell
 bash scripts/finetune_lora.sh
 ```
+__Note__: change the argument for `--load_peft` to change the LoRA weight that stage 2 will start from (for example, `--load_peft STIC-LVLM/llava-v1.6-mistral-7b-STIC-stage1`). 
 
 ### Step 4. Evaluation (Please find more details for evaluation in [Evaluation](docs/Evaluation.md).) 
 (We note that, our evaluation scripts follow the ones released for LLaVA-1.5, as the new evaluation scripts for LLaVA-1.6 were not released at the time of this work. This may result in some evaluation differences from the official reported values of LLaVA-1.6, as similar in this [issue](https://github.com/haotian-liu/LLaVA/issues/1326). Nevertheless, we maintain the same evaluation scripts for with/without STIC to ensure fair comparison.)
