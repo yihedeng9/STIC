@@ -2,7 +2,7 @@
     <img src="images/header.png" width="100%"> <br>
 </p>
 <p align="center">
-    🤗 <a href="https://huggingface.co/collections/ydeng9/stic-models-66567c6f1544c33c10e71be1" target="_blank">Models</a> | 🤗 <a href="https://huggingface.co/collections/ydeng9/stic-datasets-66567be96df2f5f482f42a2e" target="_blank">Datasets</a>
+    🤗 <a href="https://huggingface.co/collections/STIC-LVLM/stic-models-6658e7cdfac70f94c2a38af1" target="_blank">Models</a> | 🤗 <a href="https://huggingface.co/collections/STIC-LVLM/stic-data-6658e7f93aa5d4bb34ef140b" target="_blank">Datasets</a>
 </p>
 
 # Self-Training on Image Comprehension (STIC)
@@ -11,7 +11,7 @@ This repository contains the official code for the paper "[Enhancing Large Visio
 
 Authors (*Equal Contribution): [Yihe Deng](https://sites.google.com/g.ucla.edu/yihedeng/)\*, [Pan Lu](https://lupantech.github.io/)\*, [Fan Yin](https://fanyin3639.github.io/), [Ziniu Hu](https://acbull.github.io/), [Sheng Shen](https://sincerass.github.io/), [James Zou](https://www.james-zou.com/), [Kai-Wei Chang](https://web.cs.ucla.edu/~kwchang/), [Wei Wang](https://web.cs.ucla.edu/~weiwang/)
 
-[[Project page](https://stic-lvlm.github.io/)] [[Huggingface](https://huggingface.co/papers/)] 
+[[Project page](https://stic-lvlm.github.io/)] [[Huggingface](https://huggingface.co/STIC-LVLM)] 
 
 
 **Citation**: If you find this repo useful for your research, please consider citing the paper
@@ -199,7 +199,7 @@ python stic/add_des_to_data.py
 bash scripts/finetune_lora.sh
 ```
 
-### Step 4. Evaluation (Please find more details for evaluation in [Evaluation](doc/Evaluation.md).) 
+### Step 4. Evaluation (Please find more details for evaluation in [Evaluation](docs/Evaluation.md).) 
 (We note that, our evaluation scripts follow the ones released for LLaVA-1.5, as the new evaluation scripts for LLaVA-1.6 were not released at the time of this work. This may result in some evaluation differences from the official reported values of LLaVA-1.6, as similar in this [issue](https://github.com/haotian-liu/LLaVA/issues/1326). Nevertheless, we maintain the same evaluation scripts for with/without STIC to ensure fair comparison.)
 
 Take MMBench for example. (`pip install openpyxl` before evaluating with MMBench.)
@@ -210,6 +210,7 @@ python llava/eval/model_vqa_mmbench.py [options]
 ```
 - `--load-peft`: path to the lora weights fine-tuned by SITC (local or huggingface)
     - default: `None` will evaluate the original LVLM model from `--model-path`. 
+    - __example__: `ydeng9/llava-v1.6-mistral-7b-STIC` to use the provided LoRA weights. 
 - `--model-path`: path to the target LVLM model for training (local or huggingface)
     - default: `liuhaotian/llava-v1.6-mistral-7b`
 - `--answers-file`: local directory to the save the answers 

@@ -1,6 +1,6 @@
 # conda env 
 export HF_HOME="/data1/yihedeng"
-deepspeed --master_port=25641 --include=localhost:5,6 llava/train/train_dpo.py \
+deepspeed --master_port=25641 --include=localhost:0,1,2,3 llava/train/train_dpo.py \
     --lora_enable True --lora_r 128 --lora_alpha 256 --mm_projector_lr 2e-5 \
     --deepspeed scripts/zero2.json \
     --model_name_or_path liuhaotian/llava-v1.6-mistral-7b \

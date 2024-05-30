@@ -1,16 +1,18 @@
 #!/bin/bash
+ANSWER="llava-v1.6-7b-stic"
 
 python -m llava.eval.model_vqa \
     --model-path liuhaotian/llava-v1.5-mistral-7b \
     --question-file ./playground/data/eval/mm-vet/llava-mm-vet.jsonl \
     --image-folder ./playground/data/eval/mm-vet/images \
-    --answers-file ./playground/data/eval/mm-vet/answers/llava-v1.5-13b.jsonl \
+    --answers-file ./playground/data/eval/mm-vet/answers/$ANSWER.jsonl \
     --temperature 0 \
-    --conv-mode vicuna_v1
+    --conv-mode vicuna_v1 \
+    --load-peft STIC-LVLM/llava-v1.5-mistral-7b-STIC
 
 mkdir -p ./playground/data/eval/mm-vet/results
 
 python scripts/convert_mmvet_for_eval.py \
-    --src ./playground/data/eval/mm-vet/answers/llava-v1.5-13b.jsonl \
-    --dst ./playground/data/eval/mm-vet/results/llava-v1.5-13b.json
+    --src ./playground/data/eval/mm-vet/answers/$ANSWER.jsonl \
+    --dst ./playground/data/eval/mm-vet/results/$ANSWER.json
 

@@ -5,6 +5,7 @@ deepspeed --include=localhost:0,1,2,3 llava/train/train_mem.py \
     --deepspeed ./scripts/zero2.json \
     --lora_enable True --lora_r 128 --lora_alpha 256 --mm_projector_lr 2e-5 \
     --model_name_or_path liuhaotian/llava-v1.6-mistral-7b  \
+    --load_peft STIC-LVLM/llava-v1.6-mistral-7b-STIC-stage1 \
     --version v1 \
     --data_path data/des_instr_data.json \
     --image_folder /data1/yihedeng/image_data \
@@ -35,4 +36,4 @@ deepspeed --include=localhost:0,1,2,3 llava/train/train_mem.py \
     --gradient_checkpointing True \
     --lazy_preprocess True \
     --dataloader_num_workers 4 \
-    --report_to wandb
+    --report_to wandb 

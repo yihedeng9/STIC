@@ -2,6 +2,11 @@
 
 We considered the same evaluation scripts released for LLaVA-1.5, as the ones for LLaVA-1.6 were not released yet at the time of this work. 
 
+To load the lora weights, use the following arguments for all evaluations
+```
+--load-peft STIC-LVLM/llava-v1.6-mistral-7b-STIC
+```
+
 Before preparing task-specific data, **you MUST first download [eval.zip](https://drive.google.com/file/d/1atZSBBrAX54yYpxtVVW33zFvcnaHeFPy/view?usp=sharing)**. It contains custom annotations, scripts, and the prediction files with LLaVA v1.5. Extract to `./playground/data/eval`. This also provides a general structure for all datasets.
 
 ## Scripts (with DaR)

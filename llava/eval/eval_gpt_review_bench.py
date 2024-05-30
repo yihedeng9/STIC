@@ -6,7 +6,6 @@ import openai
 import time
 
 NUM_SECONDS_TO_SLEEP = 0.5
-# openai.api_key = "sk-proj-90beyxSzTlBdhlUQnwt3T3BlbkFJiIqC0LQzyIpOJE7c8cDd"
 
 def get_eval(content: str, max_tokens: int):
     while True:
@@ -20,7 +19,7 @@ def get_eval(content: str, max_tokens: int):
                     'role': 'user',
                     'content': content,
                 }],
-                temperature=0.2,  # TODO: figure out which temperature is best for evaluation
+                temperature=0.2,  
                 max_tokens=max_tokens,
             )
             break

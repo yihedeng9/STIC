@@ -20,7 +20,7 @@ def get_eval(content: str, max_tokens: int):
                     'role': 'user',
                     'content': content,
                 }],
-                temperature=0.2,  # TODO: figure out which temperature is best for evaluation
+                temperature=0.2,  
                 max_tokens=max_tokens,
             )
             break

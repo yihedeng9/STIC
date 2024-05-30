@@ -110,7 +110,7 @@ class TrainingArguments(transformers.TrainingArguments):
     lora_bias: str = "none"
     mm_projector_lr: Optional[float] = None
     group_by_modality_length: bool = field(default=False)
-
+    load_peft: Optional[str] = None
 
 def maybe_zero_3(param, ignore_status=False, name=None):
     from deepspeed import zero
@@ -960,10 +960,12 @@ def train(attn_implementation=None):
                                               data_args=data_args)
 
     ### Training from existing lora
-    model.load_adapter('/home/panlu/checkpoints/llava_v15_nll', adapter_name='self')
-    model.set_adapter("self")
-    model.delete_adapter("default")
-    print("adapter weight loaded")
+    if training_args.load_peft is not None:
+        model.load_adapter(training_args.load_peft, adapter_name='self')
+        model.set_adapter("self")
+        model.delete_adapter("default")
+        print("adapter weight loaded and will be saved to 'self'.")
+    ### 
 
     trainer = LLaVATrainer(model=model,
                     tokenizer=tokenizer,

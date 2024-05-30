@@ -37,18 +37,18 @@ def eval_model(args):
         print(f"Loaded adapter from {args.load_peft}")
 
     ### load visual prompts
-    with open('/home/panlu/Lvlm_self_train-yihe/stage2/sqa_v15/ndi_prompt8.jsonl', 'r') as json_file:
-        json_list = list(json_file)
+    # with open('./ndi_prompt.jsonl', 'r') as json_file:
+    #     json_list = list(json_file)
 
-    visual_prompts = []
-    for json_str in json_list:
-        result = json.loads(json_str)
-        visual_prompts.append(result)
+    # visual_prompts = []
+    # for json_str in json_list:
+    #     result = json.loads(json_str)
+    #     visual_prompts.append(result)
 
-    print("Length of prompts: ", len(visual_prompts))
-    visual_prompts_dict = {}
-    for item in visual_prompts:
-        visual_prompts_dict[item["image"]] = item["description"]
+    # print("Length of prompts: ", len(visual_prompts))
+    # visual_prompts_dict = {}
+    # for item in visual_prompts:
+    #     visual_prompts_dict[item["image"]] = item["description"]
     ###
     
     questions = json.load(open(os.path.expanduser(args.question_file), "r"))
