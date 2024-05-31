@@ -7,7 +7,7 @@
 
 # Self-Training on Image Comprehension (STIC)
 
-This repository contains the official code for the paper "[Enhancing Large Vision Language Models with Self-Training on Image Comprehension](https://arxiv.org/abs/)".
+This repository contains the official code for the paper "[Enhancing Large Vision Language Models with Self-Training on Image Comprehension](https://arxiv.org/abs/2405.19716)".
 
 Authors (*Equal Contribution): [Yihe Deng](https://sites.google.com/g.ucla.edu/yihedeng/)\*, [Pan Lu](https://lupantech.github.io/)\*, [Fan Yin](https://fanyin3639.github.io/), [Ziniu Hu](https://acbull.github.io/), [Sheng Shen](https://sincerass.github.io/), [James Zou](https://www.james-zou.com/), [Kai-Wei Chang](https://web.cs.ucla.edu/~kwchang/), [Wei Wang](https://web.cs.ucla.edu/~weiwang/)
 
@@ -16,13 +16,18 @@ Authors (*Equal Contribution): [Yihe Deng](https://sites.google.com/g.ucla.edu/y
 
 **Citation**: If you find this repo useful for your research, please consider citing the paper
 ```
-@misc{
-    ...
+@misc{deng2024enhancing,
+      title={Enhancing Large Vision Language Models with Self-Training on Image Comprehension}, 
+      author={Yihe Deng and Pan Lu and Fan Yin and Ziniu Hu and Sheng Shen and James Zou and Kai-Wei Chang and Wei Wang},
+      year={2024},
+      eprint={2405.19716},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }
 ```
 
 ## 🔔 News 
-- **[05/30/2024]** Our paper is released on arXiv: .
+- **[05/30/2024]** Our paper is released on arXiv: https://arxiv.org/abs/2405.19716.
 
 ## Table of Contents
 - [About STIC](#-About-STIC)
